@@ -1,11 +1,9 @@
 package com.lawsofnature.common.helper
 
-import scala.util.matching.Regex
-
 /**
   * Created by fangzhongwei on 2016/10/10.
   */
-object RegHelper extends App{
+object RegHelper {
   val MobileRegex = """^[1]([3][0-9]{1}|([4][7]{1})|([5][0-3|5-9]{1})|([8][0-9]{1}))[0-9]{8}$""".r
   val EmailRegex = """^(\w)+(\.\w+)*@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,4}$""".r
 
@@ -17,7 +15,7 @@ object RegHelper extends App{
     EmailRegex.pattern.matcher(str).matches
   }
 
-  def isMatched(str:String , reg:String): Boolean = {
+  def isMatched(str: String, reg: String): Boolean = {
     reg.r.pattern.matcher(str).matches()
   }
 }
