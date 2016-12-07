@@ -12,7 +12,7 @@ object MaskHelper {
   private val EMAIL_REGEX: Pattern = Pattern.compile("^(?<name>[\\S^@]+)@(?<domain>[A-Z0-9.-]+\\.[A-Z]{2,24})$", Pattern.CASE_INSENSITIVE)
 
   def maskMobile(mobile: String): String = {
-    regex.replaceAllIn("13512345678aa", "$1****$3")
+    regex.replaceAllIn(mobile, "$1****$3")
   }
 
   def maskEmailAddress(email: String): String = {
@@ -36,6 +36,4 @@ object MaskHelper {
     }
     else email
   }
-
-  println(maskEmailAddress("fangzhongwei@outlook.com"))
 }
