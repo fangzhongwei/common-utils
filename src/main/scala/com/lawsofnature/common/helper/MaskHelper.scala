@@ -7,7 +7,7 @@ import scala.util.matching.Regex
 /**
   * Created by fangzhongwei on 2016/12/5.
   */
-object MaskHelper extends App{
+object MaskHelper {
   private val regex: Regex = """([0-9]{3})([0-9]{4})([0-9]{4})""".r
   private val EMAIL_REGEX: Pattern = Pattern.compile("^(?<name>[\\S^@]+)@(?<domain>[A-Z0-9.-]+\\.[A-Z]{2,24})$", Pattern.CASE_INSENSITIVE)
 
