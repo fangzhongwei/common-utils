@@ -16,7 +16,7 @@ object Masker {
         i - 1
       }
     }
-    else throw new RuntimeException(String.format("Length (%d) of string \"%s\" is too short for specified number of unmasked characters (%d).", str.length.asInstanceOf[AnyRef], str, (unmaskedCharsAtStart + unmaskedCharsAtEnd).asInstanceOf[AnyRef]))
+    else throw new RuntimeException(String.format("Length (%s) of string \"%s\" is too short for specified number of unmasked characters (%s).", str.length.asInstanceOf[AnyRef], str, (unmaskedCharsAtStart + unmaskedCharsAtEnd).asInstanceOf[AnyRef]))
     builder.toString
   }
 }
