@@ -13,15 +13,9 @@ object JsonHelper {
   mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL)
   mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY)
 
-  def writeValueAsString(anyRef: AnyRef): String = {
-    mapper.writeValueAsString(anyRef)
-  }
+  def writeValueAsString(anyRef: AnyRef): String = mapper.writeValueAsString(anyRef)
 
-  def readByType[T](json: String, c: Class[T]): T = {
-    mapper.readValue(json, c)
-  }
+  def readByType[T](json: String, c: Class[T]): T = mapper.readValue(json, c)
 
-  def read(json: String, c: Class[_]): AnyRef = {
-    mapper.readValue(json, c).asInstanceOf[AnyRef]
-  }
+  def read(json: String, c: Class[_]): AnyRef = mapper.readValue(json, c).asInstanceOf[AnyRef]
 }
