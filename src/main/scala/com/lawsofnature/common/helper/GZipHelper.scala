@@ -25,7 +25,7 @@ object GZipHelper {
       val buffer: Array[Byte] = new Array[Byte](2048)
       var n: Int = 0
       while ( {
-        n = gzipInputStream.read(buffer);
+        n = gzipInputStream.read(buffer)
         n
       } >= 0) byteArrayOutputStream.write(buffer, 0, n)
       byteArrayOutputStream.toByteArray
