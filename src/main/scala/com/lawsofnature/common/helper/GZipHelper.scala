@@ -13,6 +13,7 @@ object GZipHelper {
     try {
       gzipOutputStream = new GZIPOutputStream(byteArrayOutputStream)
       gzipOutputStream.write(array)
+      gzipOutputStream.close()
       byteArrayOutputStream.toByteArray
     } finally if (gzipOutputStream != null) gzipOutputStream.close()
   }
