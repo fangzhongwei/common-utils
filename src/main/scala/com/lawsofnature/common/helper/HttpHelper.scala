@@ -22,13 +22,31 @@ object HttpHelper {
   private[this] val timeout = 90.seconds
 
   def httpPost(uri: String, content: Option[String] = None, params: Option[Map[String, String]] = None): String = {
-    logger.info(s"http post request[uri:$uri, content:${content.get}, param:${params.get}]")
+    val paramMap: Map[String, String] = params.get
+    logger.info(s"http post request[uri:$uri, content:${content.get}, param:${paramMap}]")
     val request: HttpRequest = RequestBuilding.Post(uri = uri, content = content)
+
+    if(paramMap != null && !paramMap.isEmpty) {
+      val requestEntity: MessageEntity = FormData(paramMap).toEntity
+      request.withEntity(requestEntity)
+    }
+
     val httpResponse: HttpResponse = Await.result(Http().singleRequest(request), Duration.Inf)
     val bs: Future[ByteString] = httpResponse.entity.toStrict(timeout).map(_.data)
     val s: Future[String] = bs.map(_.utf8String)
     val result: String = Await.result(s, Duration.Inf)
     logger.info(s"http post response[$result]")
+    result
+  }
+
+  def httpGet(url: String): String = {
+    logger.info(s"http get request[url:$url]")
+    val request: HttpRequest = RequestBuilding.Get(uri = url)
+    val httpResponse: HttpResponse = Await.result(Http().singleRequest(request), Duration.Inf)
+    val bs: Future[ByteString] = httpResponse.entity.toStrict(timeout).map(_.data)
+    val s: Future[String] = bs.map(_.utf8String)
+    val result: String = Await.result(s, Duration.Inf)
+    logger.info(s"http get response[$result]")
     result
   }
 }
