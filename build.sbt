@@ -10,3 +10,4 @@ libraryDependencies += "com.fasterxml.jackson.module" % "jackson-module-scala_2.
 libraryDependencies += "com.typesafe.akka" % "akka-http-core_2.11" % "10.0.0"
 libraryDependencies += "com.typesafe.akka" % "akka-http_2.11" % "10.0.0"
 libraryDependencies += "org.scala-lang" % "scala-xml" % "2.11.0-M4"
+libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.1.7"
