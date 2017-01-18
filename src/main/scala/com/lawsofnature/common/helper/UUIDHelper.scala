@@ -7,14 +7,4 @@ import java.util.UUID
   */
 object UUIDHelper {
   def generate(): String = UUID.randomUUID.toString.replace("-", "").toUpperCase
-
-  def getXml(map: Map[String, String]): String = {
-    val buffer: StringBuilder = new StringBuilder
-    buffer.append("<xml>")
-    map.foreach {
-      e => buffer.append("<").append(e._1).append("><![CDATA[").append(e._2).append("]]></").append(e._1).append(">")
-    }
-    buffer.append("</xml>")
-    buffer.toString
-  }
 }
