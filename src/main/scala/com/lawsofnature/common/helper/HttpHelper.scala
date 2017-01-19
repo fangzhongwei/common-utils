@@ -1,5 +1,8 @@
 package com.lawsofnature.common.helper
 
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
+
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.client.RequestBuilding
@@ -8,6 +11,8 @@ import akka.stream.ActorMaterializer
 import akka.util.ByteString
 import org.slf4j.{Logger, LoggerFactory}
 
+import scala.collection.mutable
+import scala.collection.mutable.StringBuilder
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
@@ -22,15 +27,13 @@ object HttpHelper {
   private[this] val timeout = 90.seconds
 
   def httpPost(uri: String, content: Option[String] = None, params: Option[Map[String, String]] = None): String = {
-    val paramMap: Map[String, String] = params.get
-    logger.info(s"http post request[uri:$uri, content:${content.get}, param:${paramMap}]")
+    logger.info(s"http post request[uri:$uri, content:${content}, param:${params}]")
     val request: HttpRequest = RequestBuilding.Post(uri = uri, content = content)
-
-    if(paramMap != null && !paramMap.isEmpty) {
-      val requestEntity: MessageEntity = FormData(paramMap).toEntity
-      request.withEntity(requestEntity)
+    params match {
+      case Some(map) => val requestEntity: MessageEntity = FormData(map).toEntity
+        request.withEntity(requestEntity)
+      case None =>
     }
-
     val httpResponse: HttpResponse = Await.result(Http().singleRequest(request), Duration.Inf)
     val bs: Future[ByteString] = httpResponse.entity.toStrict(timeout).map(_.data)
     val s: Future[String] = bs.map(_.utf8String)
@@ -39,8 +42,17 @@ object HttpHelper {
     result
   }
 
-  def httpGet(url: String): String = {
-    logger.info(s"http get request[url:$url]")
+  def httpGet(uri: String, params: Option[Map[String, String]] = None): String = {
+    logger.info(s"http get request[uri:$uri, params:$params]")
+    var url = uri
+    params match {
+      case Some(map) =>
+        uri.contains("?") match {
+          case true => url = new mutable.StringBuilder(uri).append('&').append(joinHttpParams(map)).toString()
+          case false => url = new mutable.StringBuilder(uri).append('?').append(joinHttpParams(map)).toString()
+        }
+      case None =>
+    }
     val request: HttpRequest = RequestBuilding.Get(uri = url)
     val httpResponse: HttpResponse = Await.result(Http().singleRequest(request), Duration.Inf)
     val bs: Future[ByteString] = httpResponse.entity.toStrict(timeout).map(_.data)
@@ -48,5 +60,14 @@ object HttpHelper {
     val result: String = Await.result(s, Duration.Inf)
     logger.info(s"http get response[$result]")
     result
+  }
+
+  def joinHttpParams(map: Map[String, String]): String = {
+    val value: StringBuilder = new StringBuilder()
+    map.foreach {
+      p => value.append(p._1).append('=').append(p._2).append('&')
+    }
+    value.deleteCharAt(value.length - 1)
+    value.toString()
   }
 }
