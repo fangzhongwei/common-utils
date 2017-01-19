@@ -1,8 +1,5 @@
 package com.lawsofnature.common.helper
 
-import java.net.URLEncoder
-import java.nio.charset.StandardCharsets
-
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.client.RequestBuilding
