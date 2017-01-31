@@ -1,4 +1,4 @@
-package com.lawsofnature.common.helper
+package com.jxjxgo.common.helper
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import java.util.zip.{GZIPInputStream, GZIPOutputStream}

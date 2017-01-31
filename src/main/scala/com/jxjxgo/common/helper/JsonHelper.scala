@@ -1,4 +1,4 @@
-package com.lawsofnature.common.helper
+package com.jxjxgo.common.helper
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.ObjectMapper

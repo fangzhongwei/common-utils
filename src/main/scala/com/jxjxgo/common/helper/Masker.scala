@@ -1,4 +1,4 @@
-package com.lawsofnature.common.helper
+package com.jxjxgo.common.helper
 
 /**
   * Created by fangzhongwei on 2016/12/7.

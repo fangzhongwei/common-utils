@@ -1,4 +1,4 @@
-package com.lawsofnature.common.helper
+package com.jxjxgo.common.helper
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
