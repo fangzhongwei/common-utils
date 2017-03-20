@@ -2,7 +2,7 @@ name := "common-utils"
 
 version := "1.0"
 
-scalaVersion := "2.11.8"
+scalaVersion := "2.12.1"
 
 organization := "com.jxjxgo.common"
 
