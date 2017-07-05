@@ -9,6 +9,7 @@ import scala.util.matching.Regex
   */
 object MaskHelper {
   private val regex: Regex = """([0-9]{3})([0-9]{4})([0-9]{4})""".r
+  private val bankCardRegex: Regex = """^(\d*)([0-9]{4})$""".r
   private val EMAIL_REGEX: Pattern = Pattern.compile("^(?<name>[\\S^@]+)@(?<domain>[A-Z0-9.-]+\\.[A-Z]{2,24})$", Pattern.CASE_INSENSITIVE)
 
   def maskMobile(mobile: String): String = {
@@ -35,5 +36,9 @@ object MaskHelper {
       new StringBuilder(maskedName).append("@").append(maskedDomain).toString()
     }
     else email
+  }
+
+  def maskCardNo(cardNo:String):String = {
+    regex.replaceAllIn(cardNo, new StringBuilder("a" * (cardNo.length - 4)).append("$2").toString())
   }
 }
