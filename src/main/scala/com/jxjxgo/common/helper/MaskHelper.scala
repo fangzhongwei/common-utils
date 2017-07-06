@@ -39,6 +39,6 @@ object MaskHelper {
   }
 
   def maskCardNo(cardNo:String):String = {
-    regex.replaceAllIn(cardNo, new StringBuilder("a" * (cardNo.length - 4)).append("$2").toString())
+    regex.replaceAllIn(cardNo, new StringBuilder("*" * (cardNo.length - 4)).append("$2").toString())
   }
 }
