@@ -13,11 +13,11 @@ object HttpHelper {
   private[this] val logger: Logger = LoggerFactory.getLogger(getClass)
 
   @throws[IOException]
-  def get(url: String): String = {
+  def get(url: String, charset: String): String = {
     val request = new Request.Builder().url(url).build
     val response = client.newCall(request).execute
     try {
-      response.body.string
+      new String(response.body().bytes(), charset)
     }
     finally {
       if (response != null) response.close()
