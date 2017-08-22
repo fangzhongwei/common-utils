@@ -3,14 +3,12 @@ package com.jxjxgo.common.helper
 import java.io.IOException
 
 import okhttp3.{OkHttpClient, Request}
-import org.slf4j.{Logger, LoggerFactory}
 
 /**
   * Created by fangzhongwei on 2017/1/18.
   */
 object HttpHelper {
   val client = new OkHttpClient
-  private[this] val logger: Logger = LoggerFactory.getLogger(getClass)
 
   @throws[IOException]
   def get(url: String, charset: String): String = {
