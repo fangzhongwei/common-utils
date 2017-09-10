@@ -21,4 +21,26 @@ object HttpHelper {
       if (response != null) response.close()
     }
   }
+
+  @throws[IOException]
+  def getWithRetry(url: String, charset: String): String = {
+
+    var success = false
+    var response = ""
+    var tryTimes = 0
+    var exception: Exception = null
+
+    while (tryTimes <= 3 && !success) {
+      try {
+        response = get(url, charset)
+        success = true
+      }catch {
+        case ex:Exception =>
+          tryTimes += 1
+          exception = ex
+      }
+    }
+
+    if(success) response else throw exception
+  }
 }
